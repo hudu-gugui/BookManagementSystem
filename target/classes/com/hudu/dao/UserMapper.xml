@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hudu.dao.BookMapper">
+    <insert id="addBook" parameterType="books">
+        insert into books(bookName,bookCounts,detail)
+        values (#{bookName},#{bookCounts},#{detail})
+    </insert>
+
+    <delete id="deleteBookById" parameterType="_int">
+        delete from books where bookID = #{bookID}
+    </delete>
+
+    <update id="updateBook" parameterType="books">
+        update books
+        set bookName = #{bookName},bookCounts = #{bookCounts},detail = #{detail}
+        where bookID = #{bookID}
+    </update>
+
+    <select id="queryBookById" parameterType="_int" resultType="books">
+        select * from books
+        <where>
+            <if test="bookID != null">
+                bookID = #{bookID}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryAllBook" resultType="books">
+        select * from books
+    </select>
+    
+    <select id="queryBookByName" resultType="books">
+        select * from books where bookName like "%" #{bookName} "%"
+    </select>
+    
+
+</mapper>
